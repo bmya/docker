@@ -53,7 +53,7 @@ RUN ln -s /usr/local/bin/wkhtmltopdf_arm /usr/local/bin/wkhtmltopdf
 RUN if [ "$ARCH" = "amd64" ]; then \
     dpkg -i wkhtmltox.deb && \
     apt-get -y install -f --no-install-recommends && \
-    rm -rf wkhtmltox.deb /var/lib/apt/lists/* \
+    rm -rf wkhtmltox.deb /var/lib/apt/lists/*; \
 fi
 #    else \
 #    ln -s /usr/local/bin/wkhtmltopdf_arm /usr/local/bin/wkhtmltopdf; \
