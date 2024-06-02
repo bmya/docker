@@ -1,0 +1,5 @@
+ipython==7.31.1
+pdf417gen
+google_auth
+numpy
+pdfminer
