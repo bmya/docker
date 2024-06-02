@@ -54,9 +54,10 @@ RUN if [ "$ARCH" = "amd64" ]; then \
     dpkg -i wkhtmltox.deb && \
     apt-get -y install -f --no-install-recommends && \
     rm -rf wkhtmltox.deb /var/lib/apt/lists/* \
-else \
-    ln -s /usr/local/bin/wkhtmltopdf_arm /usr/local/bin/wkhtmltopdf; \
 fi
+#    else \
+#    ln -s /usr/local/bin/wkhtmltopdf_arm /usr/local/bin/wkhtmltopdf; \
+# fi
 
 # Copy files to root directory
 COPY entrypoint.sh /
@@ -86,8 +87,8 @@ RUN pip install numpy
 RUN useradd -ms /bin/bash odoo
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons
+RUN mkdir -p /mnt/extra-addons /var/lib/odoo/sessions \
+&& chown -R odoo /mnt/extra-addons /var/lib/odoo
 
 # Expose Odoo services
 EXPOSE 8069 8071 8072
