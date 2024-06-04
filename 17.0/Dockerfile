@@ -44,7 +44,8 @@ RUN apt-get update && apt-get install -y \
     libatlas-base-dev \
     python3-dev \
     libbz2-dev \
-    libjpeg62-turbo-dev
+    libjpeg62-turbo-dev \
+    postgresql-client
 
 RUN curl -o wkhtmltox.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
 COPY wkhtmltopdf /usr/local/bin/wkhtmltopdf_arm

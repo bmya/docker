@@ -3,3 +3,4 @@ pdf417gen
 google_auth
 numpy
 pdfminer
+phonenumbers
