@@ -4,3 +4,4 @@ google_auth
 numpy
 pdfminer
 phonenumbers
+odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master
