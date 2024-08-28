@@ -84,7 +84,7 @@ RUN pip install ipython==7.31.1
 RUN npm install -g rtlcss
 
 # Install additional dependencies
-RUN pip install pdf417gen
+RUN pip install pdf417gen==0.7.1
 RUN pip install google_auth
 RUN pip install numpy
 
