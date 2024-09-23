@@ -1,7 +1,7 @@
 ipython==7.31.1
-pdf417gen
+pdf417gen==0.7.1
 google_auth
 numpy
-pdfminer
+pdfminer.six==20211012
 phonenumbers
 odoo_upgrade @ git+https://github.com/odoo/upgrade-util@master
