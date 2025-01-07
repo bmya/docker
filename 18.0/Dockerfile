@@ -23,18 +23,19 @@ RUN curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmo
     && apt-get install -y postgresql-client-14 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -o wkhtmltox.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
-COPY wkhtmltopdf /usr/local/bin/wkhtmltopdf_arm
-RUN ln -s /usr/local/bin/wkhtmltopdf_arm /usr/local/bin/wkhtmltopdf
+RUN curl -o wkhtmltox_amd64.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb \
+    && curl -o wkhtmltox_arm.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_arm64.deb
 
-RUN if [ "$ARCH" = "amd64" ]; then \
-    dpkg -i wkhtmltox.deb && \
-    apt-get -y install -f --no-install-recommends && \
-    rm -rf wkhtmltox.deb /var/lib/apt/lists/*; \
-fi
-#    else \
-#    ln -s /usr/local/bin/wkhtmltopdf_arm /usr/local/bin/wkhtmltopdf; \
-# fi
+RUN ARCH=${ARCH:-$(uname -m)}; \
+    if [ "$ARCH" = "x86_64" ]; then \
+        dpkg -i wkhtmltox_amd64.deb && \
+        apt-get -y install -f --no-install-recommends && \
+        rm -rf wkhtmltox_amd64.deb /var/lib/apt/lists/*; \
+    elif [ "$ARCH" = "arm64" ]; then \
+        dpkg -i wkhtmltox_arm.deb && \
+        apt-get -y install -f --no-install-recommends && \
+        rm -rf wkhtmltox_arm.deb /var/lib/apt/lists/*; \
+    fi
 
 # Copy files to root directory
 COPY entrypoint.sh /

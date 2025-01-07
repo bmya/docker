@@ -1,29 +1,30 @@
-version: '3.7'
 services:
     odoo:
-        container_name: odoo17e
-        image: bmya/odoo-bmya:l17
+        container_name: odoo18e
+        image: bmya/odoo-bmya:l18
         build:
-            context:  ./docker/17.0
+            context:  ./docker/18.0
             dockerfile: Dockerfile
             args:
-                ARCH: amd64  # o arm64 amd64
-        command: -- -c /etc/odoo/odoo.conf --db-filter=odoo17e_
+                ARCH: x86_64 # alternative: arm64
+        command: -- -c /etc/odoo/odoo.conf
+        stdin_open: true
+        tty: true
         restart: always
         networks:
             - default
-            - pg14_default
+            - pg12_default
         external_links:
-            - db14:db
+            - db12:db
         ports:
             - "8149:8069"
         volumes:
-            - ./data_odoo:/var/lib/odoo:delegated
+            - ../data_odoo:/var/lib/odoo:delegated
             - ./odoo:/mnt/odoo:delegated
             - ./enterprise:/mnt/enterprise:delegated
             - ./design-themes:/mnt/design-themes:delegated
             - ./extra-addons:/mnt/extra-addons:delegated
-            - ./conf:/etc/odoo
+            #- ./conf:/etc/odoo
         environment:
             - DB_PORT_5432_TCP_ADDR=db
             - DB_PORT_5432_TCP_PORT=5432
@@ -34,5 +35,5 @@ services:
 networks:
      default:
          driver: bridge
-     pg14_default:
+     pg12_default:
          external: true
